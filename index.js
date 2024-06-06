@@ -1,3 +1,5 @@
+const dotenv = require('dotenv');
+dotenv.config()
 const express = require('express');
 const sequelize = require('./database/connection');
 const bcrypt = require('bcrypt')
@@ -5,11 +7,9 @@ const users = require('./database/modals/users');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const articles = require('./database/modals/articles');
-const dotenv = require('dotenv');
 const { Sequelize } = require('sequelize');
 const app = express();
 
-dotenv.config()
 app.use(cors())
 app.use(express.json())
 
