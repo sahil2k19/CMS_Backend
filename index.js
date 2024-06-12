@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const articles = require('./database/modals/articles');
 const { Sequelize } = require('sequelize');
+const articles2 = require('./database/modals/articles2');
 const app = express();
 
 app.use(cors())
@@ -81,9 +82,9 @@ app.post('/login',async(req,res)=>{
 
 // create article
 app.post('/article',async(req,res)=>{
-    const {title, content, userId} = req.body;
+    const body= req.body;
     try {
-        const article = await articles.create({title, content, userId});
+        const article = await articles2.create(body);
         return res.json({message:"successfully created article", result:article})
     } catch (error) {
         return res.json(error)
@@ -100,9 +101,9 @@ const articleAttributes =
 app.get('/article/all/:userId',async(req,res)=>{
     const {userId} = req.params;
     try {
-        const article = await articles.findAll({
+        const article = await articles2.findAll({
             where:{userId},
-            attributes: articleAttributes
+            // attributes: articleAttributes
         });
         return res.json({message:"successfully get all articles", result:article})
     } catch (error) {
@@ -113,9 +114,9 @@ app.get('/article/all/:userId',async(req,res)=>{
 app.get('/article/:id',async(req,res)=>{
     const {id} = req.params;
     try {
-        const article= await articles.findOne({
+        const article= await articles2.findOne({
             where:{id},
-            attributes: articleAttributes
+            // attributes: articleAttributes
         });
         return res.json({message:"successfully get all articles", result:article})
     } catch (error) {
@@ -127,7 +128,7 @@ app.put('/article/:id',async(req,res)=>{
     const {id} = req.params;
     const body = req.body;
     try {
-        const article= await articles.update(body,{
+        const article= await articles2.update(body,{
             where:{id},
            
         });
@@ -148,6 +149,7 @@ app.delete('/article/:id',async(req,res)=>{
         return res.json(error)
     }
 })
+
 
 
 app.listen(2100, ()=>{
