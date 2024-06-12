@@ -110,6 +110,17 @@ app.get('/article/all/:userId',async(req,res)=>{
         return res.json(error)
     }
 })
+app.get('/article/all/',async(req,res)=>{
+    const {userId} = req.params;
+    try {
+        const article = await articles2.findAll({
+            // attributes: articleAttributes
+        });
+        return res.json({message:"successfully get all articles", result:article})
+    } catch (error) {
+        return res.json(error)
+    }
+})
 
 app.get('/article/:id',async(req,res)=>{
     const {id} = req.params;
