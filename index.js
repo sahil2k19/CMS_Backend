@@ -141,7 +141,7 @@ app.put('/article/:id',async(req,res)=>{
 app.delete('/article/:id',async(req,res)=>{
     const {id} = req.params;
     try {
-        const article= await articles.destroy({
+        const article= await articles2.destroy({
             where:{id}
         });
         return res.json({message:"successfully delete articles"})
